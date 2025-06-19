@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian atas
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/products', function () {
         return "Ini halaman manajemen produk admin.";
     })->name('admin.products');
+
+        Route::resource('admin/products', ProductController::class)->names([
+        'index' => 'admin.products.index',
+        'create' => 'admin.products.create',
+        'store' => 'admin.products.store',
+        'show' => 'admin.products.show', // Meskipun tidak dipakai, ini default resource
+        'edit' => 'admin.products.edit',
+        'update' => 'admin.products.update',
+        'destroy' => 'admin.products.destroy',
+    ]);
+
 });
 
 require __DIR__.'/auth.php';
