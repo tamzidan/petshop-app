@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\PointController;
+use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian atas
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian atas
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +25,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// MIDDLEWARE USER
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// MIDDLEWARE ADMIN
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard'); // Kita akan membuat view ini nanti
+        return view('admin.dashboard');
     })->name('admin.dashboard');
 
     // Contoh rute lain untuk admin
@@ -48,6 +52,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
         'update' => 'admin.products.update',
         'destroy' => 'admin.products.destroy',
     ]);
+
+    // Rute untuk manajemen poin (admin)
+    Route::get('/admin/points/add', [PointController::class, 'create'])->name('admin.points.create');
+    Route::post('/admin/points/store', [PointController::class, 'store'])->name('admin.points.store');
+    Route::get('/admin/points', [PointController::class, 'index'])->name('admin.points.index');
 
 });
 
