@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian atas
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RedeemController;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -30,6 +32,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Rute untuk penukaran poin
+    Route::get('/redeem', [RedeemController::class, 'index'])->name('redeem.index');
+    Route::post('/redeem/{product}', [RedeemController::class, 'redeem'])->name('redeem.redeem');
+    Route::get('/redeem/history', [RedeemController::class, 'history'])->name('redeem.history');
+
 });
 
 // MIDDLEWARE ADMIN
