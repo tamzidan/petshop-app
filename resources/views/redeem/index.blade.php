@@ -1,153 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tukar Poin - Petshop</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 960px; margin: auto; background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #007bff; text-align: center; margin-bottom: 25px; }
-        .user-info { text-align: right; margin-bottom: 20px; font-size: 1.1em; }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .product-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .product-card img {
-            max-width: 100%;
-            height: 150px;
-            object-fit: contain;
-            border-radius: 4px;
-            margin-bottom: 15px;
-        }
-        .product-card h2 {
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            color: #555;
-        }
-        .product-card p {
-            font-size: 0.95em;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        .product-card .point-cost {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #28a745;
-            margin-bottom: 15px;
-        }
-        .product-card .stock {
-            font-size: 0.9em;
-            color: #888;
-            margin-bottom: 15px;
-        }
-        .btn {
-            display: inline-block;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-        }
-        .btn-redeem { background-color: #007bff; }
-        .btn-redeem:hover { background-color: #0056b3; }
-        .btn-disabled { background-color: #cccccc; cursor: not-allowed; }
-        .alert {
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            font-size: 1em;
-            font-weight: bold;
-        }
-        .alert-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .alert-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .no-products { text-align: center; color: #777; font-style: italic; }
-        .top-links {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .top-links a {
-            margin: 0 10px;
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .top-links a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="top-links">
-            <a href="{{ url('/dashboard') }}">Dashboard</a> |
-            <a href="{{ route('redeem.history') }}">Riwayat Penukaran</a> |
-            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                @csrf
-                <button type="submit" class="btn" style="background: none; color: #dc3545; font-weight: bold; cursor: pointer; padding: 0;">Logout</button>
-            </form>
-        </div>
+<x-app-layout>
 
-        <h1>Tukar Poin Anda!</h1>
+    <x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ request()->routeIs('redeem.index') ? 'Tukar Poin' : 'Riwayat Penukaran' }}
+    </h2>
+    </x-slot>
 
-        <div class="user-info">
-            Hai, {{ Auth::user()->name }}! Poin Anda saat ini: <span style="color: #28a745;">{{ Auth::user()->points }}</span>
-        </div>
+<div class="py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+            @if (request()->routeIs('redeem.index'))
+                <div class="mb-4 text-right text-lg">
+                    Hai, {{ Auth::user()->name }}! Poin Anda saat ini: <span class="text-green-600 font-semibold">{{ Auth::user()->points }}</span>
+                </div>
 
-        @if (session('error'))
-            <div class="alert alert-error">
-                {{ session('error') }}
-            </div>
-        @endif
-
-        @if ($products->isEmpty())
-            <p class="no-products">Belum ada produk yang tersedia untuk ditukarkan.</p>
-        @else
-            <div class="product-grid">
-                @foreach ($products as $product)
-                    <div class="product-card">
-                        @if ($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
-                        @else
-                            <img src="https://via.placeholder.com/150?text=No+Image" alt="No Image">
-                        @endif
-                        <h2>{{ $product->name }}</h2>
-                        <p>{{ Str::limit($product->description, 100) }}</p>
-                        <div class="point-cost">{{ $product->point_cost }} Poin</div>
-                        <div class="stock">Stok: {{ $product->stock }}</div>
-
-                        @if (Auth::user()->points >= $product->point_cost && $product->stock > 0)
-                            <form action="{{ route('redeem.redeem', $product->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-redeem">Tukar Sekarang!</button>
-                            </form>
-                        @else
-                            <button class="btn btn-disabled" disabled>
-                                {{ $product->stock <= 0 ? 'Stok Habis' : 'Poin Tidak Cukup' }}
-                            </button>
-                        @endif
+                @if (session('success'))
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                        {{ session('success') }}
                     </div>
-                @endforeach
-            </div>
-        @endif
+                @endif
+
+                @if (session('error'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if ($products->isEmpty())
+                    <p class="text-center text-gray-500 italic">Belum ada produk yang tersedia untuk ditukarkan.</p>
+                @else
+                    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                        @foreach ($products as $product)
+                            <div class="border rounded-lg p-4 shadow bg-white">
+                                <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/150?text=No+Image' }}" alt="{{ $product->name }}" class="mb-3 h-40 w-full object-contain rounded">
+                                <h3 class="text-lg font-semibold text-gray-700 mb-1">{{ $product->name }}</h3>
+                                <p class="text-sm text-gray-600 mb-2">{{ Str::limit($product->description, 100) }}</p>
+                                <p class="text-green-600 font-bold text-lg mb-1">{{ $product->point_cost }} Poin</p>
+                                <p class="text-sm text-gray-500 mb-4">Stok: {{ $product->stock }}</p>
+                                @if (Auth::user()->points >= $product->point_cost && $product->stock > 0)
+                                    <form action="{{ route('redeem.redeem', $product->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Tukar Sekarang!</button>
+                                    </form>
+                                @else
+                                    <button class="bg-gray-300 text-white px-4 py-2 rounded cursor-not-allowed" disabled>
+                                        {{ $product->stock <= 0 ? 'Stok Habis' : 'Poin Tidak Cukup' }}
+                                    </button>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+            @elseif (request()->routeIs('redeem.history'))
+                <div class="mb-4 text-right text-lg">
+                    Hai, {{ Auth::user()->name }}! Poin Anda saat ini: <span class="text-green-600 font-semibold">{{ Auth::user()->points }}</span>
+                </div>
+
+                @if (session('success'))
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                        {!! session('success') !!}
+                    </div>
+                @endif
+
+                <div class="mb-4">
+                    <a href="{{ route('redeem.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Tukar Poin Lainnya</a>
+                    <a href="{{ url('/dashboard') }}" class="ml-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Kembali ke Dashboard</a>
+                </div>
+
+                @if ($redemptions->isEmpty())
+                    <p class="text-center text-gray-500 italic">Anda belum memiliki riwayat penukaran poin.</p>
+                @else
+                    <div class="overflow-auto">
+                        <table class="min-w-full border border-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 border">Tanggal Penukaran</th>
+                                    <th class="px-4 py-2 border">Produk</th>
+                                    <th class="px-4 py-2 border">Poin Digunakan</th>
+                                    <th class="px-4 py-2 border">Kode Klaim Unik</th>
+                                    <th class="px-4 py-2 border">Status</th>
+                                    <th class="px-4 py-2 border">Tanggal Klaim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($redemptions as $redemption)
+                                    <tr>
+                                        <td class="px-4 py-2 border">{{ $redemption->created_at->format('d M Y H:i') }}</td>
+                                        <td class="px-4 py-2 border">{{ $redemption->product->name }}</td>
+                                        <td class="px-4 py-2 border">{{ $redemption->points_used }}</td>
+                                        <td class="px-4 py-2 border font-semibold">{{ $redemption->unique_code }}</td>
+                                        <td class="px-4 py-2 border font-bold {{
+                                            $redemption->status === 'pending' ? 'text-yellow-500' :
+                                            ($redemption->status === 'claimed' ? 'text-green-600' : 'text-red-600')
+                                        }}">
+                                            {{ ucfirst($redemption->status) }}
+                                        </td>
+                                        <td class="px-4 py-2 border">{{ $redemption->claimed_at ? $redemption->claimed_at->format('d M Y H:i') : '-' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+
+            @endif
+
+        </div>
     </div>
-</body>
-</html>
+</div>
+</x-app-layout>

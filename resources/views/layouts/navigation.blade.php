@@ -1,24 +1,47 @@
+{{-- views/layouts/navigation.blade.php --}}
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    {{-- Tambahkan tautan navigasi khusus role di sini --}}
+                    @auth
+                        @if (Auth::user()->role === 'user')
+                            <x-nav-link :href="route('redeem.index')" :active="request()->routeIs('redeem.index')">
+                                {{ __('Tukar Poin') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('redeem.history')" :active="request()->routeIs('redeem.history')">
+                                {{ __('Riwayat Tukar') }}
+                            </x-nav-link>
+                        @elseif (Auth::user()->role === 'admin')
+                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                                {{ __('Dashboard Admin') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+                                {{ __('Manajemen Produk') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('admin.points.create')" :active="request()->routeIs('admin.points.create')">
+                                {{ __('Kelola Poin') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('admin.redemptions.index')" :active="request()->routeIs('admin.redemptions.index')">
+                                {{ __('Klaim Voucher') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -38,7 +61,22 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
+                        {{-- Tambahkan link ke dashboard admin/user jika sedang login sebagai role lain --}}
+                        @auth
+                            @if (Auth::user()->role === 'user' && request()->routeIs('admin.*'))
+                                {{-- Jika user adalah admin tapi sedang melihat halaman admin, arahkan ke dashboard user --}}
+                                <x-dropdown-link :href="route('dashboard')">
+                                    {{ __('Dashboard Pengguna') }}
+                                </x-dropdown-link>
+                            @elseif (Auth::user()->role === 'admin' && !request()->routeIs('admin.*'))
+                                {{-- Jika user adalah admin dan tidak sedang di halaman admin, arahkan ke dashboard admin --}}
+                                <x-dropdown-link :href="route('admin.dashboard')">
+                                    {{ __('Dashboard Admin') }}
+                                </x-dropdown-link>
+                            @endif
+                        @endauth
+
+
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
@@ -52,7 +90,6 @@
                 </x-dropdown>
             </div>
 
-            <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -64,15 +101,38 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            {{-- Tambahkan tautan responsif khusus role di sini --}}
+            @auth
+                @if (Auth::user()->role === 'user')
+                    <x-responsive-nav-link :href="route('redeem.index')" :active="request()->routeIs('redeem.index')">
+                        {{ __('Tukar Poin') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('redeem.history')" :active="request()->routeIs('redeem.history')">
+                        {{ __('Riwayat Tukar') }}
+                    </x-responsive-nav-link>
+                @elseif (Auth::user()->role === 'admin')
+                    <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Dashboard Admin') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+                        {{ __('Manajemen Produk') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.points.create')" :active="request()->routeIs('admin.points.create')">
+                        {{ __('Kelola Poin') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.redemptions.index')" :active="request()->routeIs('admin.redemptions.index')">
+                        {{ __('Klaim Voucher') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
-        <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
@@ -84,7 +144,19 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <!-- Authentication -->
+                {{-- Tambahkan link responsif ke dashboard admin/user jika sedang login sebagai role lain --}}
+                @auth
+                    @if (Auth::user()->role === 'user' && request()->routeIs('admin.*'))
+                        <x-responsive-nav-link :href="route('dashboard')">
+                            {{ __('Dashboard Pengguna') }}
+                        </x-responsive-nav-link>
+                    @elseif (Auth::user()->role === 'admin' && !request()->routeIs('admin.*'))
+                        <x-responsive-nav-link :href="route('admin.dashboard')">
+                            {{ __('Dashboard Admin') }}
+                        </x-responsive-nav-link>
+                    @endif
+                @endauth
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
