@@ -51,7 +51,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         return "Ini halaman manajemen produk admin.";
     })->name('admin.products');
 
-        Route::resource('admin/products', ProductController::class)->names([
+    Route::resource('admin/products', ProductController::class)->names([
         'index' => 'admin.products.index',
         'create' => 'admin.products.create',
         'store' => 'admin.products.store',
@@ -65,6 +65,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/points/add', [PointController::class, 'create'])->name('admin.points.create');
     Route::post('/admin/points/store', [PointController::class, 'store'])->name('admin.points.store');
     Route::get('/admin/points', [PointController::class, 'index'])->name('admin.points.index');
+
+    // Rute untuk manajemen penukaran (Redemptions / Klaim Voucher)
+    Route::get('/admin/redemptions', [PointController::class, 'showRedemptions'])->name('admin.redemptions.index');
+    Route::post('/admin/redemptions/claim', [PointController::class, 'claimRedemption'])->name('admin.redemptions.claim');
 
 });
 

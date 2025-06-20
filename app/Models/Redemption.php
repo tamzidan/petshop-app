@@ -18,6 +18,10 @@ class Redemption extends Model
         'claimed_at',
     ];
 
+    protected $casts = [
+    'claimed_at' => 'datetime',
+    ];
+
     // Relasi ke User
     public function user()
     {
