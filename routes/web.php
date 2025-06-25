@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian atas
+use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedeemController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -38,6 +40,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/redeem/{product}', [RedeemController::class, 'redeem'])->name('redeem.redeem');
     Route::get('/redeem/history', [RedeemController::class, 'history'])->name('redeem.history');
 
+    // Rute untuk menampilkan daftar grooming (halaman baru)
+    Route::get('/grooming', [GroomingController::class, 'showGroomingOptions'])->name('grooming.index');
+
+    // Rute untuk Booking Grooming - Perbarui rute ini!
+    // Tambahkan {petType?} dan {groomingType?} sebagai parameter opsional
+    Route::get('/grooming/book/{petType?}/{groomingType?}', [GroomingController::class, 'create'])->name('grooming.book.create');
+    Route::post('/grooming/book', [GroomingController::class, 'store'])->name('grooming.book.store');
 });
 
 // MIDDLEWARE ADMIN
