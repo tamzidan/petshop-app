@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\GroomingBookingController;
 use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian atas
 use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedeemController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -78,6 +80,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Rute untuk manajemen penukaran (Redemptions / Klaim Voucher)
     Route::get('/admin/redemptions', [PointController::class, 'showRedemptions'])->name('admin.redemptions.index');
     Route::post('/admin/redemptions/claim', [PointController::class, 'claimRedemption'])->name('admin.redemptions.claim');
+
+    // Rute untuk Manajemen Booking Grooming (Admin)
+    Route::get('/admin/grooming', [GroomingBookingController::class, 'index'])->name('admin.grooming.index');
+    Route::get('/admin/grooming/{groomingBooking}/edit', [GroomingBookingController::class, 'edit'])->name('admin.grooming.edit');
+    Route::put('/admin/grooming/{groomingBooking}', [GroomingBookingController::class, 'update'])->name('admin.grooming.update');
+    Route::post('/admin/grooming/{groomingBooking}/confirm', [GroomingBookingController::class, 'confirm'])->name('admin.grooming.confirm');
+    Route::post('/admin/grooming/{groomingBooking}/cancel', [GroomingBookingController::class, 'cancel'])->name('admin.grooming.cancel');
+    // Route::delete('/admin/grooming/{groomingBooking}', [GroomingBookingController::class, 'destroy'])->name('admin.grooming.destroy');
 
 });
 

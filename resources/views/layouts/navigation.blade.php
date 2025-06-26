@@ -100,6 +100,11 @@
                                 </svg>
                                 {{ __('Klaim Voucher') }}
                             </x-nav-link>
+                            {{-- Tambahkan tautan ini untuk admin --}}
+                            <x-nav-link :href="route('admin.grooming.index')" :active="request()->routeIs('admin.grooming.index') || request()->routeIs('admin.grooming.edit')">
+                                {{ __('Manajemen Booking') }}
+                            </x-nav-link>
+
                         @endif
                     @endauth
                 </div>
