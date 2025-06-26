@@ -59,6 +59,9 @@
                                 </svg>
                                 {{ __('Riwayat Tukar') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('grooming.history')" :active="request()->routeIs('grooming.history')">
+                                {{ __('Riwayat Booking Grooming') }}
+                            </x-nav-link>
                         @elseif (Auth::user()->role === 'admin')
                             <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')"
                                 class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none

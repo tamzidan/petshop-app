@@ -51,4 +51,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Redemption::class);
     }
+
+    // Relasi ke GroomingBooking
+    public function groomingBookings()
+    {
+        return $this->hasMany(GroomingBooking::class);
+    }
+
 }

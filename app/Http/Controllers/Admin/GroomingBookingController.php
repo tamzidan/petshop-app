@@ -16,28 +16,34 @@ class GroomingBookingController extends Controller
             'grooming_premium' => [
                 'price' => 40000,
                 'benefits' => ['Mandi biasa', 'Kuku', 'Telinga'],
+                'points' => 10, // Tambahkan poin
             ],
             'grooming_super' => [
                 'price' => 50000,
                 'benefits' => ['Mandi + Anti Kutu', 'Kuku', 'Telinga', 'Cukur rapi'],
+                'points' => 20, // Tambahkan poin
             ],
             'grooming_max_all' => [
                 'price' => 60000,
                 'benefits' => ['Mandi + Anti Jamur + Anti Kutu', 'Kuku', 'Telinga', 'Cukur rapi', 'Vitamin bulu', 'Parfum eksklusif'],
+                'points' => 30, // Tambahkan poin
             ],
         ],
         'adult' => [
             'grooming_premium' => [
                 'price' => 45000,
                 'benefits' => ['Mandi biasa', 'Kuku', 'Telinga'],
+                'points' => 15, // Tambahkan poin
             ],
             'grooming_super' => [
                 'price' => 55000,
                 'benefits' => ['Mandi + Anti Kutu', 'Kuku', 'Telinga', 'Cukur rapi'],
+                'points' => 25, // Tambahkan poin
             ],
             'grooming_max_all' => [
                 'price' => 65000,
                 'benefits' => ['Mandi + Anti Jamur + Anti Kutu', 'Kuku', 'Telinga', 'Cukur rapi', 'Vitamin bulu', 'Parfum eksklusif'],
+                'points' => 35, // Tambahkan poin
             ],
         ],
     ];
@@ -88,9 +94,12 @@ class GroomingBookingController extends Controller
             'status' => 'required|in:pending,confirmed,cancelled',
         ]);
 
+        $originalStatus = $groomingBooking->status; // Simpan status asli sebelum update
+
         $petType = $request->pet_type;
         $groomingTypeKey = Str::slug($request->grooming_type, '_');
         $price = self::GROOMING_OPTIONS[$petType][$groomingTypeKey]['price'] ?? null;
+        $pointsToAward = self::GROOMING_OPTIONS[$petType][$groomingTypeKey]['points'] ?? 0; // Ambil poin
 
         if (is_null($price)) {
             return back()->withInput()->with('error', 'Jenis grooming yang dipilih tidak valid.');
@@ -107,6 +116,16 @@ class GroomingBookingController extends Controller
             'status' => $request->status,
         ]);
 
+        // Logika pemberian poin
+        if ($originalStatus === 'pending' && $groomingBooking->status === 'confirmed') {
+            $user = $groomingBooking->user; // Dapatkan user terkait
+            if ($user) {
+                $user->points += $pointsToAward;
+                $user->save();
+                return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil diperbarui dan ' . $pointsToAward . ' poin telah diberikan kepada ' . $user->name . '!');
+            }
+        }
+
         return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil diperbarui!');
     }
 
@@ -119,8 +138,19 @@ class GroomingBookingController extends Controller
             return back()->with('error', 'Booking ini tidak dalam status "Pending" dan tidak bisa dikonfirmasi.');
         }
 
+        $petType = $groomingBooking->pet_type;
+        $groomingTypeKey = Str::slug($groomingBooking->grooming_type, '_');
+        $pointsToAward = self::GROOMING_OPTIONS[$petType][$groomingTypeKey]['points'] ?? 0;
+
         $groomingBooking->status = 'confirmed';
         $groomingBooking->save();
+
+        $user = $groomingBooking->user; // Dapatkan user terkait
+        if ($user) {
+            $user->points += $pointsToAward;
+            $user->save();
+            return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil dikonfirmasi dan ' . $pointsToAward . ' poin telah diberikan kepada ' . $user->name . '!');
+        }
 
         return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil dikonfirmasi!');
     }

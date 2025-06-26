@@ -171,4 +171,16 @@ class GroomingController extends Controller
             'groomingOptions' => self::GROOMING_OPTIONS,
         ]);
     }
+
+    /**
+     * Menampilkan riwayat booking grooming untuk user yang sedang login.
+     */
+    public function history()
+    {
+        $bookings = Auth::user()->groomingBookings()->orderBy('created_at', 'desc')->paginate(10);
+        $groomingOptions = self::GROOMING_OPTIONS; // Kirim data grooming options ke view
+
+        return view('user.grooming_history', compact('bookings', 'groomingOptions'));
+    }
+
 }

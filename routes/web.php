@@ -49,6 +49,10 @@ Route::middleware('auth')->group(function () {
     // Tambahkan {petType?} dan {groomingType?} sebagai parameter opsional
     Route::get('/grooming/book/{petType?}/{groomingType?}', [GroomingController::class, 'create'])->name('grooming.book.create');
     Route::post('/grooming/book', [GroomingController::class, 'store'])->name('grooming.book.store');
+
+    // Rute baru untuk riwayat booking grooming user
+    Route::get('/grooming/history', [GroomingController::class, 'history'])->name('grooming.history');
+
 });
 
 // MIDDLEWARE ADMIN
