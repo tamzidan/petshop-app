@@ -39,6 +39,16 @@
                                 </svg>
                                 {{ __('Booking Grooming') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('grooming.history')" :active="request()->routeIs('grooming.history')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                                {{ request()->routeIs('grooming.history') 
+                                    ? 'border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-t-lg' 
+                                    : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 hover:bg-green-50 dark:hover:bg-green-900/10 rounded-t-lg' }}">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                {{ __('Riwayat Booking Grooming') }}
+                            </x-nav-link>
                             <x-nav-link :href="route('redeem.index')" :active="request()->routeIs('redeem.index')"
                                 class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
                                 {{ request()->routeIs('redeem.index') 
@@ -59,9 +69,7 @@
                                 </svg>
                                 {{ __('Riwayat Tukar') }}
                             </x-nav-link>
-                            <x-nav-link :href="route('grooming.history')" :active="request()->routeIs('grooming.history')">
-                                {{ __('Riwayat Booking Grooming') }}
-                            </x-nav-link>
+                            
                         @elseif (Auth::user()->role === 'admin')
                             <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')"
                                 class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
@@ -119,10 +127,8 @@
                     @if (Auth::user()->role === 'user')
                         <div class="mr-4 px-4 py-2 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 rounded-full border border-green-200 dark:border-green-700">
                             <div class="flex items-center space-x-2">
-                                <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                </svg>
-                                <span class="text-sm font-medium text-green-700 dark:text-green-300">{{ Auth::user()->points }} Poin</span>
+                                <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 512 512" xml:space="preserve" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css">  .st0{fill:#FFD700;}  </style> <g> <path class="st0" d="M256,0C114.625,0,0,114.625,0,256c0,141.391,114.625,256,256,256s256-114.609,256-256 C512,114.625,397.375,0,256,0z M256,464c-114.688,0-208-93.313-208-208S141.313,48,256,48c114.703,0,208,93.313,208,208 S370.703,464,256,464z"></path> <path class="st0" d="M256,80c-97.047,0-176,78.953-176,176s78.953,176,176,176s176-78.953,176-176S353.047,80,256,80z M256,416 c-88.219,0-160-71.781-160-160S167.781,96,256,96c88.234,0,160,71.781,160,160S344.234,416,256,416z"></path> <path class="st0" d="M263.094,173.109h-51.5c-8.219,0-14.875,6.656-14.875,14.859v151.813c0,8.219,6.656,14.875,14.875,14.875 h7.469c8.219,0,14.875-6.656,14.875-14.875v-42.75h29.156c38.984,0,70.719-27.781,70.719-61.953S302.078,173.109,263.094,173.109z M263.094,264.422h-29.156v-58.703h29.156c18.469,0,33.484,13.172,33.484,29.359C296.578,251.25,281.563,264.422,263.094,264.422z"></path> </g> </g></svg>
+                                <span class="text-sm font-medium text-green-700 dark:text-green-300">{{ Auth::user()->points }}</span>
                             </div>
                         </div>
                     @endif
@@ -306,11 +312,7 @@
                 @if (Auth::user()->role === 'user')
                     <div class="px-4 pb-3">
                         <div class="flex items-center justify-center px-4 py-3 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 rounded-xl border border-green-200 dark:border-green-700">
-                            <div class="flex items-center space-x-2">
-                                <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                </svg>
-                                <span class="text-base font-medium text-green-700 dark:text-green-300">{{ Auth::user()->points }} Poin</span>
+                            <div class="flex items-center space-x-2"><svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 512 512" xml:space="preserve" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css">  .st0{fill:#FFD700;}  </style> <g> <path class="st0" d="M256,0C114.625,0,0,114.625,0,256c0,141.391,114.625,256,256,256s256-114.609,256-256 C512,114.625,397.375,0,256,0z M256,464c-114.688,0-208-93.313-208-208S141.313,48,256,48c114.703,0,208,93.313,208,208 S370.703,464,256,464z"></path> <path class="st0" d="M256,80c-97.047,0-176,78.953-176,176s78.953,176,176,176s176-78.953,176-176S353.047,80,256,80z M256,416 c-88.219,0-160-71.781-160-160S167.781,96,256,96c88.234,0,160,71.781,160,160S344.234,416,256,416z"></path> <path class="st0" d="M263.094,173.109h-51.5c-8.219,0-14.875,6.656-14.875,14.859v151.813c0,8.219,6.656,14.875,14.875,14.875 h7.469c8.219,0,14.875-6.656,14.875-14.875v-42.75h29.156c38.984,0,70.719-27.781,70.719-61.953S302.078,173.109,263.094,173.109z M263.094,264.422h-29.156v-58.703h29.156c18.469,0,33.484,13.172,33.484,29.359C296.578,251.25,281.563,264.422,263.094,264.422z"></path> </g> </g></svg>                                <span class="text-base font-medium text-green-700 dark:text-green-300">{{ Auth::user()->points }} Poin</span>
                             </div>
                         </div>
                     </div>

@@ -180,7 +180,7 @@ class GroomingController extends Controller
         $bookings = Auth::user()->groomingBookings()->orderBy('created_at', 'desc')->paginate(10);
         $groomingOptions = self::GROOMING_OPTIONS; // Kirim data grooming options ke view
 
-        return view('user.grooming_history', compact('bookings', 'groomingOptions'));
+        return view('grooming.history', compact('bookings', 'groomingOptions'));
     }
 
 }
