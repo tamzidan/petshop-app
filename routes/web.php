@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian ata
 use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedeemController;
+use App\Http\Controllers\GuestController; // Tambahkan ini di bagian atas
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,9 +24,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [GuestController::class, 'welcome'])->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -92,6 +91,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/grooming/{groomingBooking}/confirm', [GroomingBookingController::class, 'confirm'])->name('admin.grooming.confirm');
     Route::post('/admin/grooming/{groomingBooking}/cancel', [GroomingBookingController::class, 'cancel'])->name('admin.grooming.cancel');
     // Route::delete('/admin/grooming/{groomingBooking}', [GroomingBookingController::class, 'destroy'])->name('admin.grooming.destroy');
+
+    Route::post('/product/index', [GroomingBookingController::class, 'index'])->name('products.index');
 
 });
 
