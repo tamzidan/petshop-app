@@ -5,11 +5,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-2xl border border-gray-100 dark:border-gray-700">
 
-                <div class="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-600 p-6 text-white">
+                <div class="bg-gradient-to-r from-teal-500 via-cyan-500 to-sky-600 p-6 text-white">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-2xl font-bold mb-2">Layanan Grooming Kami</h3>
-                            {{-- <p class="text-sm opacity-90">Pilih paket grooming terbaik untuk hewan kesayangan Anda!</p> --}}
+                            <p class="text-sm opacity-90">Pilih Paket Grooming Terbaik untuk Hewan Peliharaan Anda!
+</p>
                         </div>
                         {{-- Opsional: Anda bisa menampilkan informasi user di sini juga jika diinginkan, seperti di halaman redeem --}}
                         {{-- <div class="text-right">
@@ -51,7 +52,7 @@
 
 
                 <div class="p-6">
-                    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-8 text-center">Pilih Paket Grooming Terbaik untuk Hewan Peliharaan Anda!</h3>
+                    {{-- <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-8 text-center">Pilih Paket Grooming Terbaik untuk Hewan Peliharaan Anda!</h3> --}}
 
                     @foreach ($groomingOptions as $petType => $groomingTypes)
                         <div class="mb-12">
