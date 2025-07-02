@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\GroomingBooking; // Import model GroomingBooking
+use App\Models\User;
 use Carbon\Carbon; // Untuk memanipulasi tanggal dan waktu
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -89,7 +90,7 @@ class GroomingBookingController extends Controller
             'customer_phone' => 'required|string|max:15',
             'pet_type' => 'required|in:kitten,adult',
             'grooming_type' => 'required|string',
-            'booking_date' => 'required|date|after_or_equal:today', // Admin bisa reschedule ke tanggal yang sama atau depan
+            'booking_date' => 'required|date|after_or_equal:today',
             'booking_time' => 'required|date_format:H:i',
             'status' => 'required|in:pending,confirmed,cancelled',
         ]);
@@ -97,36 +98,71 @@ class GroomingBookingController extends Controller
         $originalStatus = $groomingBooking->status; // Simpan status asli sebelum update
 
         $petType = $request->pet_type;
-        $groomingTypeKey = Str::slug($request->grooming_type, '_');
-        $price = self::GROOMING_OPTIONS[$petType][$groomingTypeKey]['price'] ?? null;
-        $pointsToAward = self::GROOMING_OPTIONS[$petType][$groomingTypeKey]['points'] ?? 0; // Ambil poin
+        $groomingTypeFromRequest = $request->grooming_type; // Ambil string grooming_type dari request
 
-        if (is_null($price)) {
+        // Ubah string grooming_type dari request menjadi format key di GROOMING_OPTIONS
+        $groomingTypeKey = Str::slug($groomingTypeFromRequest, '_');
+
+        // Dapatkan data grooming spesifik (price dan points)
+        $selectedGroomingDetails = self::GROOMING_OPTIONS[$petType][$groomingTypeKey] ?? null;
+
+        if (is_null($selectedGroomingDetails)) {
             return back()->withInput()->with('error', 'Jenis grooming yang dipilih tidak valid.');
         }
 
-        $groomingBooking->update([
-            'customer_name' => $request->customer_name,
-            'customer_phone' => $request->customer_phone,
-            'pet_type' => $petType,
-            'grooming_type' => $request->grooming_type,
-            'price' => $price, // Update harga jika jenis grooming berubah
-            'booking_date' => $request->booking_date,
-            'booking_time' => $request->booking_time,
-            'status' => $request->status,
-        ]);
+        $price = $selectedGroomingDetails['price'];
+        $pointsToAward = $selectedGroomingDetails['points']; // Ambil poin dari detail yang ditemukan
 
-        // Logika pemberian poin
-        if ($originalStatus === 'pending' && $groomingBooking->status === 'confirmed') {
-            $user = $groomingBooking->user; // Dapatkan user terkait
-            if ($user) {
-                $user->points += $pointsToAward;
-                $user->save();
-                return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil diperbarui dan ' . $pointsToAward . ' poin telah diberikan kepada ' . $user->name . '!');
+        \DB::beginTransaction(); // Tambahkan transaksi database di sini juga!
+        try {
+            $groomingBooking->update([
+                'customer_name' => $request->customer_name,
+                'customer_phone' => $request->customer_phone,
+                'pet_type' => $petType,
+                'grooming_type' => $groomingTypeFromRequest,
+                'price' => $price,
+                'booking_date' => $request->booking_date,
+                'booking_time' => $request->booking_time,
+                'status' => $request->status,
+            ]);
+
+            $pointsToAward = $selectedGroomingDetails['points'] ?? 0; // Poin untuk user yang booking
+            $additionalReferralPoints = 0;
+            $referralMessage = '';
+            
+            // Logika pemberian poin
+            if ($originalStatus === 'pending' && $groomingBooking->status === 'confirmed') {
+                $user = $groomingBooking->user; // Dapatkan user terkait
+                if ($user) {
+                    $user->points += $pointsToAward; // Poin untuk user yang booking
+
+                    // Cek apakah user ini direferral dan ini adalah transaksi pertamanya yang dikonfirmasi
+                    if ($user->referred_by && !$user->first_transaction_awarded) {
+                        $referrer = User::where('referral_code', $user->referred_by)->first();
+                        if ($referrer) {
+                            $additionalReferralPoints = 20; // Poin tambahan untuk user lama
+                            $referrer->points += $additionalReferralPoints;
+                            $referrer->save();
+                            $user->first_transaction_awarded = true; // Tandai sudah diberikan
+                            $user->save(); // Simpan perubahan pada user yang direferral
+                            $referralMessage = " dan tambahan {$additionalReferralPoints} poin kepada pemberi referral.";
+                        }
+                    }
+                    $user->save(); // Simpan perubahan poin pada user yang booking
+
+                    \DB::commit(); // Commit transaksi
+                    return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil diperbarui dan ' . $pointsToAward . ' poin telah diberikan kepada ' . $user->name . $referralMessage);
+                }
             }
-        }
+            
+            \DB::commit(); // Commit transaksi jika tidak ada poin yang diberikan
+            return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil diperbarui!');
 
-        return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil diperbarui!');
+        } catch (\Exception $e) {
+            \DB::rollback(); // Rollback jika ada error
+            \Log::error('Failed to update grooming booking and award points: ' . $e->getMessage(), ['booking_id' => $groomingBooking->id]);
+            return back()->with('error', 'Terjadi kesalahan saat memperbarui booking atau memberikan poin.');
+        }
     }
 
     /**
@@ -138,21 +174,56 @@ class GroomingBookingController extends Controller
             return back()->with('error', 'Booking ini tidak dalam status "Pending" dan tidak bisa dikonfirmasi.');
         }
 
-        $petType = $groomingBooking->pet_type;
-        $groomingTypeKey = Str::slug($groomingBooking->grooming_type, '_');
-        $pointsToAward = self::GROOMING_OPTIONS[$petType][$groomingTypeKey]['points'] ?? 0;
-
-        $groomingBooking->status = 'confirmed';
-        $groomingBooking->save();
-
-        $user = $groomingBooking->user; // Dapatkan user terkait
-        if ($user) {
-            $user->points += $pointsToAward;
-            $user->save();
-            return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil dikonfirmasi dan ' . $pointsToAward . ' poin telah diberikan kepada ' . $user->name . '!');
+        // Pastikan user_id tidak null dan user ada
+        $user = $groomingBooking->user;
+        if (!$user) {
+            return back()->with('error', 'Booking tidak terhubung dengan user yang valid.');
         }
 
-        return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil dikonfirmasi!');
+        $petType = $groomingBooking->pet_type;
+        $groomingTypeKey = Str::slug($groomingBooking->grooming_type, '_');
+        $selectedGroomingDetails = self::GROOMING_OPTIONS[$petType][$groomingTypeKey] ?? null;
+
+        $pointsToAward = $selectedGroomingDetails['points'] ?? 0;
+        $additionalReferralPoints = 0;
+        $referralMessage = '';
+
+        // Cek apakah user ini direferral dan ini adalah transaksi pertamanya yang dikonfirmasi
+        if ($user->referred_by && !$user->first_transaction_awarded) {
+            $referrer = User::where('referral_code', $user->referred_by)->first();
+            if ($referrer) {
+                $additionalReferralPoints = 20; // Poin tambahan untuk user lama
+            }
+        }
+
+        \DB::beginTransaction();
+        try {
+            // Ubah status booking
+            $groomingBooking->status = 'confirmed';
+            $groomingBooking->save();
+
+            // Berikan poin ke user yang booking
+            $user->points += $pointsToAward;
+            $user->save();
+
+            // Berikan poin tambahan ke referrer jika ada
+            if ($additionalReferralPoints > 0 && $referrer) {
+                $referrer->points += $additionalReferralPoints;
+                $referrer->save();
+                $user->first_transaction_awarded = true; // Tandai bahwa poin transaksi pertama sudah diberikan
+                $user->save();
+                $referralMessage = " dan tambahan {$additionalReferralPoints} poin kepada pemberi referral.";
+            }
+
+            \DB::commit();
+
+            return redirect()->route('admin.grooming.index')->with('success', 'Booking dengan Kode Transaksi ' . $groomingBooking->transaction_code . ' berhasil dikonfirmasi. ' . $pointsToAward . ' poin telah diberikan kepada ' . $user->name . $referralMessage);
+
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error('Failed to confirm grooming booking and award points: ' . $e->getMessage(), ['booking_id' => $groomingBooking->id]);
+            return back()->with('error', 'Terjadi kesalahan saat mengkonfirmasi booking atau memberikan poin.');
+        }
     }
 
     /**

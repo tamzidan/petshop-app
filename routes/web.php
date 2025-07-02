@@ -4,10 +4,12 @@ use App\Http\Controllers\Admin\GroomingBookingController;
 use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian atas
 use App\Http\Controllers\GroomingController;
+use App\Http\Controllers\GuestController; // Tambahkan ini di bagian atas
+use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedeemController;
-use App\Http\Controllers\GuestController; // Tambahkan ini di bagian atas
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -94,6 +96,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/product/index', [GroomingBookingController::class, 'index'])->name('products.index');
 
+});
+
+
+// Rute untuk Owner
+Route::middleware(['auth', 'owner'])->group(function () {
+    Route::get('/owner/dashboard', [OwnerController::class, 'dashboard'])->name('owner.dashboard');
+    // Tambahkan rute lain untuk owner di sini jika diperlukan
 });
 
 require __DIR__.'/auth.php';

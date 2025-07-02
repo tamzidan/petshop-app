@@ -5,17 +5,18 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 group">
+                    {{-- <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 group"> --}}
                         <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                             <x-application-logo class="block h-6 w-auto fill-current text-white" />
                         </div>
                         <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent hidden sm:block">Enha PetShop</span>
-                    </a>
+                    {{-- </a> --}}
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" 
-                        class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                <div class="
+                -x-8 sm:-my-px sm:ms-10 sm:flex">
+                    {{-- <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" 
+                        class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
                         {{ request()->routeIs('dashboard') 
                             ? 'border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-t-lg' 
                             : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 hover:bg-green-50 dark:hover:bg-green-900/10 rounded-t-lg' }}">
@@ -24,13 +25,24 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
                         </svg>
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+                    </x-responsive-nav-link> --}}
 
                     {{-- Tambahkan tautan navigasi khusus role di sini --}}
                     @auth
                         @if (Auth::user()->role === 'user')
-                            <x-nav-link :href="route('grooming.index')" :active="request()->routeIs('grooming.index') || request()->routeIs('grooming.book.create')"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" 
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
+                                {{ request()->routeIs('dashboard') 
+                                    ? 'border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-t-lg' 
+                                    : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 hover:bg-green-50 dark:hover:bg-green-900/10 rounded-t-lg' }}">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
+                                </svg>
+                                {{ __('Dashboard') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('grooming.index')" :active="request()->routeIs('grooming.index') || request()->routeIs('grooming.book.create')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
                                 {{ request()->routeIs('grooming.index') 
                                     ? 'border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-t-lg' 
                                     : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 hover:bg-green-50 dark:hover:bg-green-900/10 rounded-t-lg' }}">
@@ -38,9 +50,9 @@
                                     <path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/>
                                 </svg>
                                 {{ __('Booking Grooming') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('grooming.history')" :active="request()->routeIs('grooming.history')"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('grooming.history')" :active="request()->routeIs('grooming.history')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
                                 {{ request()->routeIs('grooming.history') 
                                     ? 'border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-t-lg' 
                                     : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 hover:bg-green-50 dark:hover:bg-green-900/10 rounded-t-lg' }}">
@@ -48,9 +60,9 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 {{ __('Riwayat Booking Grooming') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('redeem.index')" :active="request()->routeIs('redeem.index')"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('redeem.index')" :active="request()->routeIs('redeem.index')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
                                 {{ request()->routeIs('redeem.index') 
                                     ? 'border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-t-lg' 
                                     : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 hover:bg-green-50 dark:hover:bg-green-900/10 rounded-t-lg' }}">
@@ -58,9 +70,9 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                                 </svg>
                                 {{ __('Tukar Poin') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('redeem.history')" :active="request()->routeIs('redeem.history')"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('redeem.history')" :active="request()->routeIs('redeem.history')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
                                 {{ request()->routeIs('redeem.history') 
                                     ? 'border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-t-lg' 
                                     : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 hover:bg-green-50 dark:hover:bg-green-900/10 rounded-t-lg' }}">
@@ -68,11 +80,11 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 {{ __('Riwayat Tukar') }}
-                            </x-nav-link>
+                            </x-responsive-nav-link>
                             
                         @elseif (Auth::user()->role === 'admin')
-                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
                                 {{ request()->routeIs('admin.dashboard') 
                                     ? 'border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-t-lg' 
                                     : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/10 rounded-t-lg' }}">
@@ -80,9 +92,9 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                                 {{ __('Dashboard Admin') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
                                 {{ request()->routeIs('admin.products.index') 
                                     ? 'border-orange-500 text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 rounded-t-lg' 
                                     : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/10 rounded-t-lg' }}">
@@ -90,9 +102,9 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                                 </svg>
                                 {{ __('Manajemen Produk') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('admin.points.create')" :active="request()->routeIs('admin.points.create')"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('admin.points.create')" :active="request()->routeIs('admin.points.create')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
                                 {{ request()->routeIs('admin.points.create') 
                                     ? 'border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-t-lg' 
                                     : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 hover:bg-green-50 dark:hover:bg-green-900/10 rounded-t-lg' }}">
@@ -100,9 +112,9 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                                 </svg>
                                 {{ __('Kelola Poin') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('admin.redemptions.index')" :active="request()->routeIs('admin.redemptions.index')"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('admin.redemptions.index')" :active="request()->routeIs('admin.redemptions.index')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
                                 {{ request()->routeIs('admin.redemptions.index') 
                                     ? 'border-purple-500 text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 rounded-t-lg' 
                                     : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:border-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/10 rounded-t-lg' }}">
@@ -110,12 +122,29 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                                 </svg>
                                 {{ __('Klaim Voucher') }}
-                            </x-nav-link>
+                            </x-responsive-nav-link>
                             {{-- Tambahkan tautan ini untuk admin --}}
-                            <x-nav-link :href="route('admin.grooming.index')" :active="request()->routeIs('admin.grooming.index') || request()->routeIs('admin.grooming.edit')">
+                            <x-responsive-nav-link :href="route('admin.grooming.index')" :active="request()->routeIs('admin.grooming.index')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
+                                {{ request()->routeIs('admin.grooming.index') 
+                                    ? 'border-purple-500 text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 rounded-t-lg' 
+                                    : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:border-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/10 rounded-t-lg' }}">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                </svg>
                                 {{ __('Manajemen Booking') }}
-                            </x-nav-link>
-
+                            </x-responsive-nav-link>
+                        @elseif (Auth::user()->role === 'owner')
+                            <x-responsive-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('owner.dashboard')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
+                                {{ request()->routeIs('owner.dashboard') 
+                                    ? 'border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-t-lg' 
+                                    : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 hover:bg-green-50 dark:hover:bg-green-900/10 rounded-t-lg' }}">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/>
+                                </svg>
+                                {{ __('Dashboard Owner') }}
+                            </x-responsive-nav-link>
                         @endif
                     @endauth
                 </div>
@@ -123,7 +152,7 @@
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <!-- Points Display -->
-                @auth
+                {{-- @auth
                     @if (Auth::user()->role === 'user')
                         <div class="mr-4 px-4 py-2 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 rounded-full border border-green-200 dark:border-green-700">
                             <div class="flex items-center space-x-2">
@@ -132,7 +161,7 @@
                             </div>
                         </div>
                     @endif
-                @endauth
+                @endauth --}}
 
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">

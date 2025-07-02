@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'zenziva' => [
+        'userkey' => env('ZENZIVA_USERKEY'),
+        'passkey' => env('ZENZIVA_PASSKEY'),
+        'brand_name' => env('ZENZIVA_BRAND_NAME'),
+        'wa_official_api_url' => env('ZENZIVA_WA_OFFICIAL_API_URL'),
+    ],
 ];
