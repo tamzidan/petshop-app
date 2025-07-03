@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+    <div class="mb-4 text-sm text-orange-900 dark:text-orange-700">
         {{ __('Lupa password Anda? Masukkan nomor WhatsApp Anda, kami akan mengirimkan kode OTP untuk mereset password Anda.') }}
     </div>
 

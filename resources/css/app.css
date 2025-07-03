@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+            .hero-bg {
+                background-color: #FED16A;
+                background-size: cover;
+                background-position: center;
+            }
