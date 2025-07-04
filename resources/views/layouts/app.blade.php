@@ -33,5 +33,6 @@
                 {{ $slot }}
             </main>
         </div>
+        @stack('scripts') {{-- <-- PASTIKAN BARIS INI ADA --}}
     </body>
 </html>

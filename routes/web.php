@@ -27,6 +27,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [GuestController::class, 'welcome'])->name('welcome');
+Route::get('/layanan/shop', [GuestController::class, 'showShop'])->name('guest.shop');
+Route::get('/layanan/grooming', [GuestController::class, 'showGrooming'])->name('guest.grooming');
+Route::get('/layanan/clinic', [GuestController::class, 'showClinic'])->name('guest.clinic');
+Route::get('/layanan/hotel', [GuestController::class, 'showHotel'])->name('guest.hotel');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

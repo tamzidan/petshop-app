@@ -24,6 +24,42 @@
                     </div>
                 </div>
 
+                {{-- Bagian Utama Konten --}}
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    @if (session('success'))
+                        {{-- Notifikasi Sukses --}}
+                    @endif
+
+                    <div class="bg-yellow-50 dark:bg-yellow-900/20 border-2 border-dashed border-yellow-300 dark:border-yellow-700 p-5 rounded-2xl mb-6">
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-bold text-lg text-yellow-900 dark:text-yellow-200">Bagikan Kode Referral Anda!</h4>
+                                <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">
+                                    Ajak teman Anda dan dapatkan poin bonus untuk setiap referral yang sukses!
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 bg-white dark:bg-gray-700 p-2 rounded-lg shadow-inner w-full sm:w-auto">
+                                <span id="referralCode" class="font-mono text-lg font-bold text-gray-700 dark:text-gray-200 px-3">
+                                    {{ Auth::user()->referral_code }}
+                                </span>
+                                <button id="shareButton" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition-all duration-200 transform hover:scale-105 flex items-center ms-auto gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+                                    </svg>
+                                    <span>Bagikan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="{{ route('redeem.history') }}" class="bg-gradient-to-r from-green-500 to-emerald-500 ...">
+                            {{-- ... Tombol Riwayat Tukar ... --}}
+                        </a>
+                        <a href="{{ url('/dashboard') }}" class="bg-gradient-to-r from-gray-600 to-gray-700 ...">
+                            {{-- ... Tombol Kembali ke Dashboard ... --}}
+                        </a>
+                    </div>
+
                 <div class="p-6">
                     @if (session('success'))
                         <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 px-4 py-3 rounded-xl mb-6 flex items-center space-x-3">
@@ -274,4 +310,55 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const shareButton = document.getElementById('shareButton');
+    const referralCodeEl = document.getElementById('referralCode');
+
+    if (shareButton && referralCodeEl) {
+        shareButton.addEventListener('click', async () => {
+            const referralCode = referralCodeEl.innerText;
+            const shareData = {
+                title: 'Gabung dan Dapatkan Poin!',
+                text: `Gunakan kode referral saya: ${referralCode} untuk mendapatkan bonus poin saat mendaftar!`,
+                url: '{{ route("register") }}' // Arahkan ke halaman registrasi Anda
+            };
+
+            // Cek apakah Web Share API didukung oleh browser
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                    console.log('Konten berhasil dibagikan!');
+                } catch (err) {
+                    console.error('Error saat berbagi:', err);
+                }
+            } else {
+                // Fallback: Jika tidak didukung, salin ke clipboard
+                navigator.clipboard.writeText(referralCode).then(() => {
+                    // Simpan teks asli tombol
+                    const originalText = shareButton.innerHTML;
+                    
+                    // Beri feedback visual
+                    shareButton.innerHTML = 'Kode Tersalin!';
+                    shareButton.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                    shareButton.classList.add('bg-green-500', 'cursor-not-allowed');
+
+                    // Kembalikan ke semula setelah 2 detik
+                    setTimeout(() => {
+                        shareButton.innerHTML = originalText;
+                        shareButton.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                        shareButton.classList.remove('bg-green-500', 'cursor-not-allowed');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Gagal menyalin:', err);
+                    alert('Gagal menyalin kode. Mohon salin secara manual.');
+                });
+            }
+        });
+    }
+});
+</script>
+@endpush
 </x-app-layout>
