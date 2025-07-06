@@ -289,6 +289,16 @@
                         </svg>
                         <span>{{ __('Riwayat Tukar') }}</span>
                     </x-responsive-nav-link>
+                    {{-- <x-responsive-nav-link :href="route('grooming.history')" :active="request()->routeIs('grooming.history')"
+                        class="flex items-center space-x-3 pl-4 pr-4 py-3 border-l-4 text-base font-medium transition duration-150 ease-in-out
+                        {{ request()->routeIs('grooming.history') 
+                            ? 'border-orange-500 text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-900/20' 
+                            : 'border-transparent text-amber-600 dark:text-amber-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/10 hover:border-orange-300' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>{{ __('Riwayat Grooming') }}</span>
+                    </x-responsive-nav-link> --}}
                 @elseif (Auth::user()->role === 'admin')
                     <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')"
                         class="flex items-center space-x-3 pl-4 pr-4 py-3 border-l-4 text-base font-medium transition duration-150 ease-in-out

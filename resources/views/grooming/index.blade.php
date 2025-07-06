@@ -1,16 +1,13 @@
-{{-- resources/views/grooming/index.blade.php --}}
-
 <x-app-layout>
-    <div class="py-12 bg-gray-50 dark:bg-gray-900 min-h-screen">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-2xl border border-gray-100 dark:border-gray-700">
+<div class="sm:py-12 lg:py-12 bg-yellow-50 dark:bg-yellow-500 min-h-screen">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white dark:bg-yellow-500 overflow-hidden shadow-lg sm:rounded-2xl border border-yellow-100 dark:border-yellow-700">
 
-                <div class="bg-gradient-to-r from-teal-500 via-cyan-500 to-sky-600 p-6 text-white">
+                <div class="bg-gradient-to-r from-orange-700 to-yellow-600 p-6 text-white">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-2xl font-bold mb-2">Layanan Grooming Kami</h3>
-                            <p class="text-sm opacity-90">Pilih Paket Grooming Terbaik untuk Hewan Peliharaan Anda!
-</p>
+                            <p class="text-sm opacity-90">Pilih Paket Grooming Terbaik untuk Hewan Peliharaan Anda!</p>
                         </div>
                         {{-- Opsional: Anda bisa menampilkan informasi user di sini juga jika diinginkan, seperti di halaman redeem --}}
                         {{-- <div class="text-right">
@@ -32,7 +29,7 @@
                     @endif
 
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <a href="{{ route('grooming.history') }}" class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
+                        <a href="{{ route('grooming.history') }}" class="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
                             <div class="flex items-center justify-center space-x-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
@@ -40,7 +37,7 @@
                                 <span>Riwayat Grooming</span>
                             </div>
                         </a>
-                        <a href="{{ url('/dashboard') }}" class="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
+                        <a href="{{ url('/dashboard') }}" class="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
                             <div class="flex items-center justify-center space-x-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -56,12 +53,12 @@
 
                     @foreach ($groomingOptions as $petType => $groomingTypes)
                         <div class="mb-12">
-                            <h4 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-6 border-b-2 border-emerald-300 dark:border-emerald-700 pb-3 text-center">
+                            <h4 class="text-xl font-semibold text-amber-700 dark:text-amber-900 mb-6 border-b-2 border-emerald-300 dark:border-emerald-700 pb-3 text-center">
                                 Grooming {{ ucfirst($petType) }} ({{ $petType === 'kitten' ? 'Anak Kucing' : 'Kucing Dewasa' }})
                             </h4>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                                 @foreach ($groomingTypes as $groomingKey => $details)
-                                    <div class="bg-white dark:bg-gray-700 border border-emerald-100 dark:border-gray-600 rounded-2xl p-6 flex flex-col justify-between shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group">
+                                    <div class="bg-white dark:bg-amber-800 border border-emerald-100 dark:border-amber-700 rounded-2xl p-6 flex flex-col justify-between shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group">
                                         <div>
                                             <h5 class="text-xl font-bold text-emerald-700 dark:text-emerald-400 mb-3 text-center group-hover:text-emerald-800 dark:group-hover:text-emerald-300 transition-colors">
                                                 {{ Str::title(str_replace('_', ' ', $groomingKey)) }}

@@ -1,11 +1,11 @@
 {{-- resources/views/user/grooming_history.blade.php --}}
 
 <x-app-layout>
-    <div class="py-12 bg-gray-50 dark:bg-gray-900 min-h-screen">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-2xl border border-gray-100 dark:border-gray-700">
+<div class="sm:py-12 lg:py-12 bg-yellow-50 dark:bg-yellow-500 min-h-screen">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white dark:bg-yellow-500 overflow-hidden shadow-lg sm:rounded-2xl border border-yellow-100 dark:border-yellow-700">
 
-                <div class="bg-gradient-to-r from-teal-500 via-cyan-500 to-sky-600 p-6 text-white">
+                <div class="bg-gradient-to-r from-orange-700 to-yellow-600 p-6 text-white">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-2xl font-bold mb-2">Riwayat Booking Grooming Anda</h3>
@@ -27,7 +27,7 @@
                     @endif
 
                     <div class="mb-6 flex flex-col sm:flex-row gap-3">
-                        <a href="{{ route('grooming.index') }}" class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
+                        <a href="{{ route('grooming.index') }}" class="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
                             <div class="flex items-center justify-center space-x-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
@@ -35,7 +35,7 @@
                                 <span>Booking Grooming Lagi!</span>
                             </div>
                         </a>
-                        <a href="{{ url('/dashboard') }}" class="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
+                        <a href="{{ url('/dashboard') }}" class="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
                             <div class="flex items-center justify-center space-x-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -76,12 +76,12 @@
                                 </svg>
                             </div>
                             <p class="text-gray-500 dark:text-gray-400 text-lg font-medium">Anda belum memiliki riwayat booking grooming.</p>
-                            <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">Ayo <a href="{{ route('grooming.index') }}" class="text-blue-600 hover:underline">booking grooming pertama Anda</a> sekarang!</p>
+                            <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">Ayo <a href="{{ route('grooming.index') }}" class="text-amber-600 hover:underline">booking grooming pertama Anda</a> sekarang!</p>
                         </div>
                     @else
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach ($bookings as $booking)
-                                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 p-6 flex flex-col justify-between">
+                                <div class="bg-white dark:bg-amber-800 rounded-xl shadow-lg border border-amber-100 dark:border-amber-700 p-6 flex flex-col justify-between">
                                     <div>
                                         <div class="flex items-center justify-between mb-4">
                                             <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Kode Transaksi: {{ $booking->transaction_code }}</h4>
@@ -112,7 +112,7 @@
                                     <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                                         @if ($booking->status === 'confirmed')
                                             <a href="{{ route('grooming.index', ['pet_type' => $booking->pet_type, 'grooming_type' => $booking->grooming_type]) }}"
-                                               class="w-full inline-flex justify-center items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200">
+                                               class="w-full inline-flex justify-center items-center px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-md transition duration-200">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                                                 Booking Lagi
                                             </a>
@@ -129,7 +129,7 @@
                                             </a>
                                         @elseif ($booking->status === 'cancelled')
                                             <a href="{{ route('grooming.index') }}"
-                                               class="w-full inline-flex justify-center items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-200">
+                                               class="w-full inline-flex justify-center items-center px-4 py-2 bg-amber-400 hover:bg-amber-300 text-gray-500 font-semibold rounded-lg shadow-md transition duration-200">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                                 Cari Jadwal Lain
                                             </a>

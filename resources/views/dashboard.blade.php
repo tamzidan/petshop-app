@@ -35,11 +35,28 @@
                     Riwayat Penukaran
                 </a>
             </div>
-
         </div>
 
+                    <!-- Promo/Banner Section -->
+                    <div class="bg-white dark:bg-amber-900 rounded-2xl shadow-lg overflow-hidden">
+                        <div class="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 p-6">
+                            <div class="flex items-center justify-between">
+                                <div class="text-white">
+                                    <h3 class="text-xl font-bold mb-2">Promo Spesial!</h3>
+                                    <p class="text-sm opacity-90">Gratis 2KG Pasir untuk setiap pembelian di hari jum'at dan senin</p>
+                                    {{-- <p class="text-xs opacity-75 mt-1">Berlaku hingga akhir bulan</p> --}}
+                                </div>
+                                <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
+                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="py-12">
+
+    <div {{-- class="py-12"  --}}>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -49,6 +66,7 @@
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                         <!-- Shop -->
                         <div class="bg-white dark:bg-amber-900 rounded-2xl shadow-lg p-6 border border-orange-100 dark:border-amber-700 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group">
+                            <a href="shop">
                             <div class="flex flex-col items-center text-center space-y-3">
                                 <div class="w-16 h-16 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,6 +76,7 @@
                                 <h3 class="text-lg font-bold text-gray-800 dark:text-white group-hover:text-orange-500 transition-colors">Shop</h3>
                                 <p class="text-xs text-gray-500 dark:text-gray-400">Makanan & Aksesoris</p>
                             </div>
+                            </a>
                         </div>
 
                         <!-- Grooming -->
@@ -75,6 +94,7 @@
 
                         <!-- Clinic -->
                         <div class="bg-white dark:bg-amber-900 rounded-2xl shadow-lg p-6 border border-orange-100 dark:border-amber-700 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group">
+                            <a href="clinic">
                             <div class="flex flex-col items-center text-center space-y-3">
                                 <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-orange-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                     <svg width="64px" height="64px" viewBox="0 0 2050 2050" data-name="Layer 3" id="Layer_3" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:#ffff;}.cls-2{fill:#ffffe0e1e2;}.cls-3{fill:#ffff2e3a58;}</style></defs><title></title><path class="cls-1" d="M684.5,1473a15,15,0,0,1-10.6-4.4l-92.5-92.5a14.9,14.9,0,0,1,0-21.2l52.2-52.2a15.1,15.1,0,0,1,21.2,0l92.5,92.5a15.1,15.1,0,0,1,0,21.2l-52.2,52.2A15,15,0,0,1,684.5,1473Z"></path><rect class="cls-2" height="98.14" transform="translate(-252.6 1193.8) rotate(-45)" width="95.6" x="1266.9" y="852.7"></rect><rect class="cls-2" height="58.73" transform="translate(-107.4 1185.5) rotate(-45)" width="246.6" x="1254" y="693"></rect><rect class="cls-2" height="62.26" transform="translate(-532.9 1057.5) rotate(-45)" width="717.4" x="651.4" y="1140.9"></rect><rect class="cls-2" height="249.06" transform="translate(-267.3 1090.2) rotate(-45)" width="43.5" x="1160.6" y="743.2"></rect><path class="cls-3" d="M778.5,1462.6a14.6,14.6,0,0,1-10.6-4.4L591.8,1282.1a14.9,14.9,0,0,1,0-21.2L1099,753.6a15.1,15.1,0,0,1,21.2,0l176.2,176.2a14.9,14.9,0,0,1,4.3,10.6,15.1,15.1,0,0,1-4.3,10.6L789.1,1458.2A14.7,14.7,0,0,1,778.5,1462.6ZM623.6,1271.5l154.9,154.9,486-486L1109.6,785.5Z"></path><rect class="cls-1" height="30" transform="translate(-904.1 826.4) rotate(-45)" width="262.3" x="414.4" y="1489.5"></rect><path class="cls-3" d="M1310.9,845.3a14.7,14.7,0,0,1-10.6-4.4l-91.2-91.2a15,15,0,0,1,0-21.2l174.3-174.4a15.1,15.1,0,0,1,21.3,0l91.2,91.2a15,15,0,0,1,0,21.3L1321.5,840.9A14.7,14.7,0,0,1,1310.9,845.3Zm-70-106.2,70,70,153.2-153.2-70-70Z"></path><path class="cls-1" d="M1554.7,740.4a15.1,15.1,0,0,1-10.6-4.4L1314,505.9a15,15,0,0,1,0-21.2l42.5-42.5a14.9,14.9,0,0,1,21.2,0l230.1,230.1a14.6,14.6,0,0,1,4.4,10.6,14.7,14.7,0,0,1-4.4,10.6L1565.3,736A14.9,14.9,0,0,1,1554.7,740.4Z"></path><rect class="cls-3" height="60.01" transform="translate(-318.6 990.6) rotate(-45)" width="30" x="1021.4" y="849.9"></rect><rect class="cls-3" height="60.01" transform="translate(-398.2 957.6) rotate(-45)" width="30" x="941.8" y="929.5"></rect><rect class="cls-3" height="60.01" transform="translate(-477.8 924.6) rotate(-45)" width="30" x="862.2" y="1009.1"></rect><rect class="cls-3" height="60.01" transform="translate(-557.4 891.7) rotate(-45)" width="30" x="782.6" y="1088.7"></rect><rect class="cls-3" height="60.01" transform="translate(-637 858.7) rotate(-45)" width="30" x="703" y="1168.3"></rect><path class="cls-1" d="M770,1376.3a5.1,5.1,0,0,1-3.6-1.5,5.1,5.1,0,0,1,0-7.1l42.4-42.4a5.1,5.1,0,0,1,7.1,0,5,5,0,0,1,0,7.1l-42.4,42.4A5,5,0,0,1,770,1376.3Zm84.8-84.9a5,5,0,0,1-3.5-8.5l42.4-42.4a5,5,0,0,1,7.1,0,5,5,0,0,1,0,7L858.3,1290A5,5,0,0,1,854.8,1291.4Zm84.9-84.8a5.1,5.1,0,0,1-3.6-1.5,5.1,5.1,0,0,1,0-7.1l42.5-42.4a5,5,0,0,1,7,0,5,5,0,0,1,0,7.1l-42.4,42.4A5,5,0,0,1,939.7,1206.6Zm84.8-84.9a5.2,5.2,0,0,1-3.5-1.4,5,5,0,0,1,0-7.1l42.4-42.4a5,5,0,0,1,7.1,0,5,5,0,0,1,0,7l-42.4,42.5A5.4,5.4,0,0,1,1024.5,1121.7Zm84.9-84.8a5.1,5.1,0,0,1-3.6-1.5,5.1,5.1,0,0,1,0-7.1l42.5-42.4a5,5,0,0,1,7,0,5,5,0,0,1,0,7.1l-42.4,42.4A5,5,0,0,1,1109.4,1036.9Zm84.8-84.9a5.2,5.2,0,0,1-3.5-1.4,5,5,0,0,1,0-7.1l42.4-42.4a5,5,0,0,1,7.1,0,5,5,0,0,1,0,7l-42.4,42.5A5.4,5.4,0,0,1,1194.2,952Z"></path><path class="cls-3" d="M1315.6,985.3a15.3,15.3,0,0,1-10.6-4.4L1069.1,745a15.2,15.2,0,0,1-4.4-10.6,15,15,0,0,1,4.4-10.6l67.6-67.6a14.9,14.9,0,0,1,21.2,0l235.9,235.9a14.6,14.6,0,0,1,4.4,10.6,14.7,14.7,0,0,1-4.4,10.6l-67.6,67.6A14.9,14.9,0,0,1,1315.6,985.3ZM1101,734.4,1315.6,949l46.4-46.3L1147.3,688Z"></path></g></svg>
@@ -82,10 +102,12 @@
                                 <h3 class="text-lg font-bold text-gray-800 dark:text-white group-hover:text-blue-500 transition-colors">Clinic</h3>
                                 <p class="text-xs text-gray-500 dark:text-gray-400">Kesehatan Hewan</p>
                             </div>
+                            </a>
                         </div>
 
                         <!-- Hotel -->
                         <div class="bg-white dark:bg-amber-900 rounded-2xl shadow-lg p-6 border border-yellow-100 dark:border-amber-700 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group">
+                            <a href="hotel">
                             <div class="flex flex-col items-center text-center space-y-3">
                                 <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-pink-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,29 +117,12 @@
                                 <h3 class="text-lg font-bold text-gray-800 dark:text-white group-hover:text-yellow-500 transition-colors">Hotel</h3>
                                 <p class="text-xs text-gray-500 dark:text-gray-400">Penitipan Hewan</p>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Promo/Banner Section -->
-                    <div class="bg-white dark:bg-amber-900 rounded-2xl shadow-lg overflow-hidden mb-6">
-                        <div class="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 p-6">
-                            <div class="flex items-center justify-between">
-                                <div class="text-white">
-                                    <h3 class="text-xl font-bold mb-2">Promo Spesial!</h3>
-                                    <p class="text-sm opacity-90">Gratis 2KG Pasir untuk setiap pembelian di hari jum'at</p>
-                                    {{-- <p class="text-xs opacity-75 mt-1">Berlaku hingga akhir bulan</p> --}}
-                                </div>
-                                <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
-                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                    </svg>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
 
                     <!-- Quick Stats -->
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    {{-- <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 border border-gray-100 dark:border-gray-700">
                             <div class="flex items-center space-x-3">
                                 <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
@@ -173,10 +178,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Recent Activity -->
-                    <div class="bg-white dark:bg-amber-900 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                    {{-- <div class="bg-white dark:bg-amber-900 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-bold text-gray-800 dark:text-white">Aktivitas Terbaru</h3>
                             <button class="text-yellow-600 dark:text-yellow-400 text-sm font-medium hover:text-yellow-700 dark:hover:text-yellow-300">
@@ -221,7 +226,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     @endif
 
                     @if (Auth::user()->role === 'admin')
