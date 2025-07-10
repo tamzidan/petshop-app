@@ -9,7 +9,9 @@ use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedeemController;
 use App\Http\Controllers\User\UserController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -26,6 +28,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Storage linked successfully';
+});
+
 
 Route::get('/', [GuestController::class, 'welcome'])->name('welcome');
 Route::get('/layanan/shop', [GuestController::class, 'showShop'])->name('guest.shop');
