@@ -8,7 +8,7 @@
     <x-input-error :messages="$errors->get('otp_code')" class="mt-2" />
 
 
-    <form method="POST" action="{{ route('whatsapp.register.verify-otp') }}">
+    <form method="POST" action="{{ route('register.verify-otp') }}">
         @csrf
 
         <div>

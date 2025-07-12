@@ -64,7 +64,7 @@ class WhatsappAuthController extends Controller
         $response = $this->zenzivaService->sendWhatsAppOfficialOtp($phoneNumber, (string)$otpCode);
 
         if ($response['status'] === 'success') {
-            return redirect()->route('whatsapp.register.verify')->with('success', 'Kode OTP telah dikirim ke nomor WhatsApp Anda. Mohon masukkan kode untuk verifikasi.');
+            return redirect()->route('register.verify')->with('success', 'Kode OTP telah dikirim ke nomor WhatsApp Anda. Mohon masukkan kode untuk verifikasi.');
         } else {
             // Log detail error dari Zenziva untuk debugging lebih lanjut
             Log::error('Zenziva WhatsApp OTP Send Failed from registerSendOtp: ' . ($response['message'] ?? 'Unknown error'), [
