@@ -103,9 +103,9 @@
                                 </svg>
                                 {{ __('Manajemen Produk') }}
                             </x-responsive-nav-link>
-                            <x-responsive-nav-link :href="route('admin.points.create')" :active="request()->routeIs('admin.points.create')"
+                            <x-responsive-nav-link :href="route('admin.points.index')" :active="request()->routeIs('admin.points.index')"
                                 class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
-                                {{ request()->routeIs('admin.points.create') 
+                                {{ request()->routeIs('admin.points.index') 
                                     ? 'border-orange-500 text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 rounded-t-lg' 
                                     : 'border-transparent text-amber-600 dark:text-amber-300 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/10 rounded-t-lg' }}">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -320,9 +320,9 @@
                         </svg>
                         <span>{{ __('Manajemen Produk') }}</span>
                     </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('admin.points.create')" :active="request()->routeIs('admin.points.create')"
+                    <x-responsive-nav-link :href="route('admin.points.index')" :active="request()->routeIs('admin.points.index')"
                         class="flex items-center space-x-3 pl-4 pr-4 py-3 border-l-4 text-base font-medium transition duration-150 ease-in-out
-                        {{ request()->routeIs('admin.points.create') 
+                        {{ request()->routeIs('admin.points.index') 
                             ? 'border-orange-500 text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-900/20' 
                             : 'border-transparent text-amber-600 dark:text-amber-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/10 hover:border-orange-300' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
