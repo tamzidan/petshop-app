@@ -70,7 +70,7 @@
                                 <div>
                                     <h5 class="font-semibold text-amber-800 dark:text-amber-800 mb-2">Layanan Darurat</h5>
                                     <p class="text-gray-700 dark:text-amber-100">24 jam untuk kasus emergency</p>
-                                    <p class="text-red-600 dark:text-red-400 font-medium">Hubungi: 0812-3456-7890</p>
+                                    <p class="text-red-600 dark:text-red-400 font-medium">Hubungi: 0896-2632-3769</p>
                                 </div>
                             </div>
                         </div>
