@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ShopProduct;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -90,7 +91,8 @@ class GuestController extends Controller
 
     public function showShop()
     {
-        return view('guest.shop');
+        $shopProducts = ShopProduct::all(); // Ambil semua produk dari tabel shop_products
+        return view('guest.shop', compact('shopProducts')); // Kirim data ke view baru
     }
     public function showGrooming()
     {

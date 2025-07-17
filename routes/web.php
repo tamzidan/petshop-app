@@ -117,6 +117,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/product/index', [GroomingBookingController::class, 'index'])->name('products.index');
 
+    // Rute baru untuk manajemen Produk Toko
+    Route::resource('admin/shop-products', \App\Http\Controllers\Admin\ShopProductController::class)->names([
+        'index' => 'admin.shop-products.index',
+        'create' => 'admin.shop-products.create',
+        'store' => 'admin.shop-products.store',
+        'edit' => 'admin.shop-products.edit',
+        'update' => 'admin.shop-products.update',
+        'destroy' => 'admin.shop-products.destroy',
+    ]);
+
+
     
     Route::resource('sliders', SliderController::class)->only(['index', 'create', 'store', 'destroy']);
 });
