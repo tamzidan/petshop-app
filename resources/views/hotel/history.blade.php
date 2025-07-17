@@ -1,3 +1,5 @@
+{{-- resources/views/user/hotel_history.blade.php --}}
+
 <x-app-layout>
 <div class="sm:py-12 lg:py-12 bg-yellow-50 dark:bg-yellow-500 min-h-screen">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -6,8 +8,8 @@
                 <div class="bg-gradient-to-r from-orange-700 to-yellow-600 p-6 text-white">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h3 class="text-2xl font-bold mb-2">Riwayat Booking Grooming Anda</h3>
-                            <p class="text-sm opacity-90">Lihat semua booking grooming yang pernah Anda buat.</p>
+                            <h3 class="text-2xl font-bold mb-2">Riwayat Booking Hotel Anda</h3>
+                            <p class="text-sm opacity-90">Lihat semua booking hotel yang pernah Anda buat.</p>
                         </div>
                     </div>
                 </div>
@@ -25,12 +27,12 @@
                     @endif --}}
 
                     <div class="mb-6 flex flex-col sm:flex-row gap-3">
-                        <a href="{{ route('grooming.index') }}" class="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
+                        <a href="{{ route('hotel.index') }}" class="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
                             <div class="flex items-center justify-center space-x-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                                 </svg>
-                                <span>Booking Grooming Lagi!</span>
+                                <span>Booking Hotel Lagi!</span>
                             </div>
                         </a>
                         <a href="{{ url('/dashboard') }}" class="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
@@ -73,8 +75,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M17 11h.01M9 15h.01M15 15h.01M9 19h.01M15 19h.01M5 19V6a2 2 0 012-2h10a2 2 0 012 2v13a2 2 0 01-2 2H7a2 2 0 01-2-2z"></path>
                                 </svg>
                             </div>
-                            <p class="text-gray-500 dark:text-gray-400 text-lg font-medium">Anda belum memiliki riwayat booking grooming.</p>
-                            <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">Ayo <a href="{{ route('grooming.index') }}" class="text-amber-600 hover:underline">booking grooming pertama Anda</a> sekarang!</p>
+                            <p class="text-gray-500 dark:text-gray-400 text-lg font-medium">Anda belum memiliki riwayat booking hotel.</p>
+                            <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">Ayo <a href="{{ route('hotel.index') }}" class="text-amber-600 hover:underline">booking hotel pertama Anda</a> sekarang!</p>
                         </div>
                     @else
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -90,26 +92,26 @@
                                                 {{ ucfirst($booking->status) }}
                                             </span>
                                         </div>
-                                        <p class="text-gray-700 dark:text-gray-300 mb-2">
+                                        {{-- <p class="text-gray-700 dark:text-gray-300 mb-2">
                                             <span class="font-medium">Jenis Hewan:</span> {{ ucfirst($booking->pet_type) }}
+                                        </p> --}}
+                                        <p class="text-gray-700 dark:text-gray-300 mb-2">
+                                            <span class="font-medium">Jumlah Hewan:</span> {{ $booking->number_of_cats }}
                                         </p>
                                         <p class="text-gray-700 dark:text-gray-300 mb-2">
-                                            <span class="font-medium">Layanan:</span> {{ $booking->grooming_type }}
+                                            <span class="font-medium">Total Harga:</span> Rp{{ number_format($booking->total_price, 0, ',', '.') }}
                                         </p>
                                         <p class="text-gray-700 dark:text-gray-300 mb-2">
-                                            <span class="font-medium">Harga:</span> Rp{{ number_format($booking->price, 0, ',', '.') }}
-                                        </p>
-                                        <p class="text-gray-700 dark:text-gray-300 mb-2">
-                                            <span class="font-medium">Tanggal:</span> {{ $booking->booking_date->format('d M Y') }}
+                                            <span class="font-medium">Tanggal Masuk:</span> {{ $booking->check_in_date->format('d M Y') }}
                                         </p>
                                         <p class="text-gray-700 dark:text-gray-300 mb-4">
-                                            <span class="font-medium">Jam:</span> {{ $booking->booking_time->format('H:i') }}
+                                            <span class="font-medium">Tanggal Keluar:</span> {{ $booking->check_out_date->format('d M Y') }}
                                         </p>
                                     </div>
 
                                     <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                                         @if ($booking->status === 'confirmed')
-                                            <a href="{{ route('grooming.index', ['pet_type' => $booking->pet_type, 'grooming_type' => $booking->grooming_type]) }}"
+                                            <a href="{{ route('hotel.index', ['pet_type' => $booking->pet_type, 'hotel_type' => $booking->hotel_type]) }}"
                                                class="w-full inline-flex justify-center items-center px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-md transition duration-200">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                                                 Booking Lagi
@@ -117,7 +119,7 @@
                                         @elseif ($booking->status === 'pending')
                                             @php
                                                 $adminPhoneNumber = '6285722403823'; // Ganti dengan nomor WhatsApp admin yang sebenarnya
-                                                $message = urlencode("Halo admin, saya ingin menanyakan status booking grooming saya dengan Kode Transaksi: {$booking->transaction_code} untuk {$booking->customer_name} pada tanggal {$booking->booking_date->format('d M Y')} jam {$booking->booking_time->format('H:i')} dengan layanan {$booking->grooming_type} ({$booking->pet_type}).");
+                                                $message = urlencode("Halo admin, saya ingin menanyakan status booking hotel saya dengan Kode Transaksi: {$booking->transaction_code} untuk {$booking->customer_name} pada tanggal {$booking->check_in_date->format('d M Y')} sampai {$booking->check_out_date->format('d M Y')} dengan jumlah kucing {$booking->number_of_cats}.");
                                                 $whatsappLink = "https://wa.me/{$adminPhoneNumber}?text={$message}";
                                             @endphp
                                             <a href="{{ $whatsappLink }}" target="_blank"
@@ -126,7 +128,7 @@
                                                 Hubungi Admin via WhatsApp
                                             </a>
                                         @elseif ($booking->status === 'cancelled')
-                                            <a href="{{ route('grooming.index') }}"
+                                            <a href="{{ route('hotel.index') }}"
                                                class="w-full inline-flex justify-center items-center px-4 py-2 bg-amber-400 hover:bg-amber-300 text-gray-500 font-semibold rounded-lg shadow-md transition duration-200">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                                 Cari Jadwal Lain

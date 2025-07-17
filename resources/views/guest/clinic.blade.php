@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-general-layout>
     <div class="bg-amber-100 dark:bg-amber-900 py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- Kontainer Utama Meniru Halaman Grooming --}}
@@ -134,4 +134,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-general-layout>

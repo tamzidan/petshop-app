@@ -73,8 +73,8 @@
 
                         <div class="flex items-center space-x-2 sm:space-x-4">
                             <div class="flex space-x-2 sm:space-x-4">
-                                <a href="#" class="text-sm sm:text-base font-semibold text-amber-600 hover:text-amber-900 dark:text-amber-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">Login</a>
-                                <a href="#" class="text-sm sm:text-base font-semibold text-amber-600 hover:text-amber-900 dark:text-yellow-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">Register</a>
+                                <a href="{{ route('login') }}" class="text-sm sm:text-base font-semibold text-amber-600 hover:text-amber-900 dark:text-amber-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">Login</a>
+                                <a href="{{ route('register') }}" class="text-sm sm:text-base font-semibold text-amber-600 hover:text-amber-900 dark:text-yellow-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">Register</a>
                             </div>
                         </div>
                     </div>

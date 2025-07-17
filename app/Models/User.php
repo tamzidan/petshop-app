@@ -80,4 +80,10 @@ class User extends Authenticatable
         return $this->hasMany(GroomingBooking::class);
     }
 
+    // Relasi ke CatHotelBooking
+    public function HotelBookings()
+    {
+        return $this->hasMany(HotelBooking::class);
+    }
+
 }

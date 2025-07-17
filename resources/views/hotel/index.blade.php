@@ -1,4 +1,5 @@
-<x-general-layout>
+{{-- resources/views/hotel/index.blade.php --}}
+<x-app-layout>
     <div class="sm:py-12 lg:py-12 bg-yellow-50 dark:bg-gray-900 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-2xl border border-yellow-100 dark:border-gray-700">
@@ -18,7 +19,7 @@
 
                     {{-- Deskripsi Layanan --}}
                     <div class="text-center mb-8">
-                        <h4 class="text-xl font-bold text-orange-600 dark:text-orange-400">Mengapa Memilih Pet Hotel Kami?</h4>
+                        <h4 class="text-xl font-bold text-orange-600 dark:text-orange-400">Mengapa Memilih Hotel Kami?</h4>
                         <p class="mt-2 text-gray-600 dark:text-gray-300">Kami menyediakan lebih dari sekadar tempat menginap. Kami memberikan pengalaman liburan yang menyenangkan untuk hewan kesayangan Anda dengan fasilitas dan perawatan premium.</p>
                     </div>
 
@@ -63,17 +64,17 @@
                     </div>
 
                      {{-- Tombol Navigasi Bawah --}}
-                    {{-- <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row gap-3 justify-center">
+                    <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row gap-3 justify-center">
                         <a href="{{ route('hotel.history') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 font-medium px-6 py-3 rounded-xl transition-all duration-300 shadow-sm text-center">
                             Riwayat Order Hotel
                         </a>
                         <a href="{{ url('/dashboard') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 font-medium px-6 py-3 rounded-xl transition-all duration-300 shadow-sm text-center">
                             Kembali ke Dashboard
                         </a>
-                    </div> --}}
+                    </div>
 
                 </div>
             </div>
         </div>
     </div>
-</x-general-layout>
+</x-app-layout>

@@ -1,17 +1,21 @@
 <?php
 
 use App\Http\Controllers\Admin\GroomingBookingController;
+use App\Http\Controllers\Admin\HotelBookingController;
 use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian atas
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\GuestController; // Tambahkan ini di bagian atas
+use App\Http\Controllers\HotelController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedeemController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 
@@ -73,7 +77,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/shop', [UserController::class, 'showShop'])->name('user.shop');
     // Route::get('/grooming', [UserController::class, 'showGrooming'])->name('user.grooming');
     Route::get('/clinic', [UserController::class, 'showClinic'])->name('user.clinic');
-    Route::get('/hotel', [UserController::class, 'showHotel'])->name('user.hotel');
+    // Route::get('/hotel', [UserController::class, 'showHotel'])->name('user.hotel');
+
+    // Rute untuk Booking Hotel Kucing
+    Route::get('/hotel', [HotelController::class, 'index'])->name('hotel.index');
+    Route::get('/hotel/booking', [HotelController::class, 'create'])->name('hotel.create');
+    Route::post('/hotel/booking', [HotelController::class, 'store'])->name('hotel.store');
+    Route::get('/hotel/history', [HotelController::class, 'history'])->name('hotel.history');
 
 });
 
@@ -114,6 +124,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/grooming/{groomingBooking}/confirm', [GroomingBookingController::class, 'confirm'])->name('admin.grooming.confirm');
     Route::post('/admin/grooming/{groomingBooking}/cancel', [GroomingBookingController::class, 'cancel'])->name('admin.grooming.cancel');
     // Route::delete('/admin/grooming/{groomingBooking}', [GroomingBookingController::class, 'destroy'])->name('admin.grooming.destroy');
+
+    // RUTE BARU UNTUK MANAJEMEN BOOKING HOTEL
+    Route::get('/admin/hotel', [HotelBookingController::class, 'index'])->name('admin.hotel.index');
+    Route::get('/admin/hotel/{hotelBooking}/edit', [HotelBookingController::class, 'edit'])->name('admin.hotel.edit');
+    Route::put('/admin/hotel/{hotelBooking}', [HotelBookingController::class, 'update'])->name('admin.hotel.update');
+    Route::post('/admin/hotel/{hotelBooking}/confirm', [HotelBookingController::class, 'confirm'])->name('admin.hotel.confirm');
+    Route::post('/admin/hotel/{hotelBooking}/cancel', [HotelBookingController::class, 'cancel'])->name('admin.hotel.cancel');
 
     Route::post('/product/index', [GroomingBookingController::class, 'index'])->name('products.index');
 

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\GroomingBooking;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str; // Untuk menghasilkan kode unik
+use App\Models\User;
 use Carbon\Carbon; // Untuk memanipulasi tanggal dan waktu
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str; // Untuk menghasilkan kode unik
 
 class GroomingController extends Controller
 {
@@ -80,6 +82,10 @@ class GroomingController extends Controller
         ],
     ];
 
+    // SALIN KONSTANTA INI
+    const FIRST_TRANSACTION_BONUS_POINTS = 80;
+    const POINT_CONVERSION_RATE = 100;
+
 
     /**
      * Menampilkan form booking grooming.
@@ -109,9 +115,7 @@ class GroomingController extends Controller
         ]);
 
         $petType = $request->pet_type;
-        $groomingTypeKey = Str::slug($request->grooming_type, '_'); // Konversi nama grooming ke key
-
-        // Ambil harga dari struktur GROOMING_OPTIONS yang baru
+        $groomingTypeKey = Str::slug($request->grooming_type, '_');
         $price = self::GROOMING_OPTIONS[$petType][$groomingTypeKey]['price'] ?? null;
 
         if (is_null($price)) {
@@ -123,24 +127,68 @@ class GroomingController extends Controller
             $transactionCode = 'TRX-' . strtoupper(Str::random(6));
         }
 
-        $booking = GroomingBooking::create([
-            'user_id' => Auth::id(),
-            'transaction_code' => $transactionCode,
-            'customer_name' => $request->customer_name,
-            'customer_phone' => $request->customer_phone,
-            'pet_type' => $petType,
-            'grooming_type' => $request->grooming_type,
-            'price' => $price,
-            'booking_date' => $request->booking_date,
-            'booking_time' => $request->booking_time,
-            'status' => 'pending',
-        ]);
+        $booking = null;
+
+        // GUNAKAN DB TRANSACTION DI SINI
+        DB::transaction(function () use ($request, $transactionCode, $price, $petType, &$booking) {
+            $user = Auth::user();
+
+            $booking = GroomingBooking::create([
+                'user_id' => $user->id,
+                'transaction_code' => $transactionCode,
+                'customer_name' => $request->customer_name,
+                'customer_phone' => $request->customer_phone,
+                'pet_type' => $petType,
+                'grooming_type' => $request->grooming_type,
+                'price' => $price,
+                'booking_date' => $request->booking_date,
+                'booking_time' => $request->booking_time,
+                'status' => 'pending',
+            ]);
+
+            // PANGGIL FUNGSI REWARD POIN DI SINI
+            // $this->processTransactionRewards($user, $price);
+        });
 
         $whatsappMessage = $this->generateWhatsAppMessage($booking);
-        $whatsappAdminNumber = '6285722403823'; // Pastikan ini nomor WA admin yang benar
+        $whatsappAdminNumber = '6285722403823';
 
         return redirect()->away("https://wa.me/{$whatsappAdminNumber}?text=" . urlencode($whatsappMessage))
-                        ->with('success', 'Booking berhasil dibuat! Silakan konfirmasi pembayaran dan jadwal via WhatsApp. Kode Transaksi Anda: ' . $transactionCode);
+                        ->with('success', 'Booking berhasil dibuat! Kode Transaksi Anda: ' . $transactionCode);
+    }
+
+    private function processTransactionRewards(User $user, int $totalPrice)
+    {
+        $pointsToAdd = 0;
+
+        // Cek apakah ini transaksi pertama user (belum pernah dapat bonus)
+        if (!$user->first_transaction_awarded) {
+            // Berikan bonus transaksi pertama untuk user baru
+            $pointsToAdd += self::FIRST_TRANSACTION_BONUS_POINTS;
+
+            // LOGIKA BARU UNTUK REFERRAL
+            // Cek apakah user ini punya pengundang (referrer)
+            $referrer = $user->referrerUser; 
+            
+            if ($referrer) {
+                // Jika ada, tambahkan 100 poin ke referrer
+                $referrer->points += 100; // Poin untuk si pengundang
+                $referrer->save();
+            }
+
+            // Tandai bahwa bonus transaksi pertama sudah diberikan ke user ini
+            $user->first_transaction_awarded = true;
+        }
+
+        // Hitung poin reguler dari total harga (tetap berjalan untuk setiap transaksi)
+        $regularPoints = floor($totalPrice / self::POINT_CONVERSION_RATE);
+        $pointsToAdd += $regularPoints;
+
+        // Tambahkan total poin yang dihitung ke user yang bertransaksi
+        if ($pointsToAdd > 0) {
+            $user->points += $pointsToAdd;
+            $user->save();
+        }
     }
 
     /**
