@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class GuestController extends Controller
@@ -83,7 +84,8 @@ class GuestController extends Controller
      */
     public function welcome()
     {
-        return view('welcome'); // Ini akan me-render file welcome.blade.php
+        $sliders = Slider::all(); // Ambil semua data slider
+        return view('welcome', compact('sliders')); // Kirim data ke vie
     }
 
     public function showShop()

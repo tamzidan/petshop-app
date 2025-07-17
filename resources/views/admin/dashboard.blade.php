@@ -57,6 +57,18 @@
                     <p class="text-sm text-gray-500 dark:text-gray-400">Lihat peringkat dan saldo poin semua pengguna.</p>
                 </a>
 
+                {{-- Kartu Menu: Manajemen Slider --}}
+                <a href="{{ route('sliders.index') }}" class="group block p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-orange-400">
+                    <div class="flex items-center justify-center w-12 h-12 bg-orange-100 dark:bg-orange-900/50 rounded-full mb-4 transition-all duration-300 group-hover:bg-orange-500">
+                        <svg class="w-6 h-6 text-orange-600 dark:text-orange-300 transition-all duration-300 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962A3.375 3.375 0 019 12.75l-1.546.927a3.375 3.375 0 00-3.808 4.971 4.5 4.5 0 005.454 1.272M12 12a3.375 3.375 0 100-6.75 3.375 3.375 0 000 6.75zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">Manajemen Slider</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Atur promo di dengan slider</p>
+                </a>
+
+
             </div>
 
         </div>

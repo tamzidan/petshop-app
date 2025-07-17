@@ -134,6 +134,16 @@
                                 </svg>
                                 {{ __('Manajemen Booking') }}
                             </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('sliders.index')" :active="request()->routeIs('sliders.index')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6
+                                {{ request()->routeIs('sliders.index') 
+                                    ? 'border-purple-500 text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 rounded-t-lg' 
+                                    : 'border-transparent text-amber-600 dark:text-amber-300 hover:text-purple-600 dark:hover:text-purple-400 hover:border-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/10 rounded-t-lg' }}">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                </svg>
+                                {{ __('Manajemen Sliders') }}
+                            </x-responsive-nav-link>
                         @elseif (Auth::user()->role === 'owner')
                             <x-responsive-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('owner.dashboard')"
                                 class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none hidden sm:flex sm:items-center sm:ms-6

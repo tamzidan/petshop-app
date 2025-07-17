@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\GroomingBookingController;
 use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\ProductController; // Tambahkan ini di bagian atas
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\GuestController; // Tambahkan ini di bagian atas
 use App\Http\Controllers\OwnerController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\RedeemController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -68,10 +70,10 @@ Route::middleware('auth')->group(function () {
     // Rute baru untuk riwayat booking grooming user
     Route::get('/grooming/history', [GroomingController::class, 'history'])->name('grooming.history');
 
-    Route::get('/shop', [UserController::class, 'showShop'])->name('guest.shop');
-    // Route::get('/grooming', [UserController::class, 'showGrooming'])->name('guest.grooming');
-    Route::get('/clinic', [UserController::class, 'showClinic'])->name('guest.clinic');
-    Route::get('/hotel', [UserController::class, 'showHotel'])->name('guest.hotel');
+    Route::get('/shop', [UserController::class, 'showShop'])->name('user.shop');
+    // Route::get('/grooming', [UserController::class, 'showGrooming'])->name('user.grooming');
+    Route::get('/clinic', [UserController::class, 'showClinic'])->name('user.clinic');
+    Route::get('/hotel', [UserController::class, 'showHotel'])->name('user.hotel');
 
 });
 
@@ -115,6 +117,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/product/index', [GroomingBookingController::class, 'index'])->name('products.index');
 
+    
+    Route::resource('sliders', SliderController::class)->only(['index', 'create', 'store', 'destroy']);
 });
 
 

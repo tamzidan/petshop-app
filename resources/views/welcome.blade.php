@@ -40,7 +40,7 @@
                             @if (Route::has('login'))
                                 <div class="flex space-x-4">
                                     @auth
-                                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">Dashboard</a>
+                                        <a href="{{ url('/dashboard') }}" class="font-semibold text-amber-600 hover:text-amber-900 dark:text-amber-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">Dashboard</a>
                                     @else
                                         <a href="{{ route('login') }}" class="font-semibold text-amber-600 hover:text-amber-900 dark:text-yellow-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">Login</a>
 
@@ -55,29 +55,48 @@
                 </div>
             </nav>
 
-            <div class="hero-bg flex items-center justify-center min-h-[calc(100vh-64px)] text-center text-gray-800 p-6">
-                <div class="bg-gray-100 bg-opacity-90 p-8 rounded-lg max-w-2xl mx-auto shadow-xl">
-                    <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight text-amber-700">
-                        Selamat Datang! {{-- di <span class="text-orange-400">Enha Petshop</span>  --}}
-                    </h1>
-                    <p class="text-lg sm:text-xl mb-8 opacity-90">
-                        Daftar sekarang untuk langsung menikmati promo Gratis Ongkir daerah Cicalengka, Cikancung, Paseh dan Limbangan. Promo Gratis Ongkir hanya untuk pembelian member Enha Petshop di enhapetshop.com. Yuk daftar sekarang, sebelum promo berakhir!
-                    </p>
-                    <div class="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center">
-                        {{-- <a href="{{ route('grooming.index') }}" class="bg-amber-400 hover:bg-amber-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
-                            Lihat Layanan Grooming
-                        </a> --}}
-                        <a href="{{ route('register') }}" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
-                            Daftar Sekarang!
-                        </a>
-                    </div>
-                    @guest
-                        <p class="mt-8 text-md opacity-80">
-                            Sudah punya akun? <a href="{{ route('login') }}" class="font-semibold text-yellow-800 hover:text-indigo-100 underline">Login di sini</a> untuk mendapatkan poin dan menukarkan reward!
-                        </p>
-                    @endguest
+    <div class="max-w-2xl mx-auto lg:mt-4 bg-white dark:bg-amber-800 text-amber-800 dark:text-gray-200 rounded-lg">
+{{-- Ganti bagian hero lama dengan slider ini --}}
+<div class="relative min-h-[calc(10vh-64px)] lg:p-1 shadow-xl">
+    <div class="swiper h-[calc(50vh-64px)]">
+        <div class="swiper-wrapper">
+            @forelse($sliders as $slider)
+                <div class="swiper-slide bg-cover bg-center" style="background-image: url('{{ asset('storage/' . $slider->image_path) }}')">
+                    {{-- Kita letakkan konten teks di atas gambar slider --}}
                 </div>
+            @empty
+                {{-- Fallback jika tidak ada gambar di database --}}
+                <div class="swiper-slide bg-cover bg-center" style="background-image: url('https://plus.unsplash.com/premium_photo-1707353401897-da9ba223f807?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                </div>
+            @endforelse
+        </div>
+        <div class="swiper-pagination"></div>
+
+        <div class="swiper-button-prev text-white"></div>
+        <div class="swiper-button-next text-white"></div>
+    </div>
+</div>
+
+    {{-- Konten Teks di Atas Slider --}}
+        <div class="bg-white dark:bg-orange-400 p-8 max-w-2xl mx-auto shadow-xl rounded-b-lg">
+            <h1 class="text-2xl sm:text-5xl font-extrabold mb-4 leading-tight text-emerald-900">
+                Daftar GRATIS Jadi Member Enha Petshop!
+            </h1>
+            <p class="text-lg sm:text-xl mb-8 text-gray-100">
+                Daftar sekarang untuk langsung menikmati promo Reward Point dan Gratis Ongkir daerah Cicalengka, Cikancung, Paseh dan Limbangan. Promo Gratis Ongkir hanya untuk pembelian member Enha Petshop di enhapetshop.com. Yuk daftar sekarang, sebelum promo berakhir!
+            </p>
+            <div class="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center">
+                <a href="{{ route('register') }}" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
+                    <p class="text-center">Daftar Sekarang!</p>
+                </a>
             </div>
+            @guest
+                <p class="mt-8 text-md opacity-80 text-gray-200">
+                    Sudah punya akun? <a href="{{ route('login') }}" class="font-semibold text-yellow-800 hover:text-indigo-600 underline">Login di sini</a> untuk mendapatkan poin dan menukarkan reward!
+                </p>
+            @endguest
+        </div>
+    </div>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
