@@ -7,9 +7,8 @@
 ![Languages](https://img.shields.io/github/languages/top/tamzidan/petshop-app)
 
 **Dibangun dengan tools dan teknologi:**
-
-![JSON](https://img.shields.io/badge/JSON-000000?style=flat&logo=json)
-![Markdown](https://img.shields.io/badge/Markdown-000000?style=flat&logo=markdown)
+![JSON](https://img.shields.io/badge/JSON-000000?style=flat&logo=json)\
+![Markdown](https://img.shields.io/badge/Markdown-000000?style=flat&logo=markdown)\
 ![HTML](https://img.shields.io/badge/npm-DD3735?style=flat&logo=npm&logoColor=white)
 ![Autoprefixer](https://img.shields.io/badge/Autoprefixer-DD3735?style=flat&logo=autoprefixer&logoColor=white)
 ![PostCSS](https://img.shields.io/badge/PostCSS-DD3A0A?style=flat&logo=postcss&logoColor=white)
