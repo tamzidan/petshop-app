@@ -2,23 +2,23 @@
 
 *Transformasi Perawatan Hewan, Memberdayakan Hewan Peliharaan Bahagia Setiap Hari*
 
-![last commit](https://img.shields.io/github/last-commit/tamzidan/petshop-app)
-![Made with](https://img.shields.io/badge/Made%20with-PHP-777BB4?style=flat&logo=php)
+![last commit](https://img.shields.io/github/last-commit/tamzidan/petshop-app)\
+![Made with](https://img.shields.io/badge/Made%20with-PHP-777BB4?style=flat&logo=php)\
 ![Languages](https://img.shields.io/github/languages/top/tamzidan/petshop-app)
 
-**Dibangun dengan tools dan teknologi:**
+**Dibangun dengan tools dan teknologi:**\
 ![JSON](https://img.shields.io/badge/JSON-000000?style=flat&logo=json)\
 ![Markdown](https://img.shields.io/badge/Markdown-000000?style=flat&logo=markdown)\
-![HTML](https://img.shields.io/badge/npm-DD3735?style=flat&logo=npm&logoColor=white)
-![Autoprefixer](https://img.shields.io/badge/Autoprefixer-DD3735?style=flat&logo=autoprefixer&logoColor=white)
-![PostCSS](https://img.shields.io/badge/PostCSS-DD3A0A?style=flat&logo=postcss&logoColor=white)
-![Composer](https://img.shields.io/badge/Composer-885630?style=flat&logo=composer&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![XML](https://img.shields.io/badge/XML-FF6600?style=flat&logo=xml)
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat&logo=php&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white)
-![Swiper](https://img.shields.io/badge/Swiper-5A29E4?style=flat&logo=swiper&logoColor=white)
-![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white)
+![HTML](https://img.shields.io/badge/npm-DD3735?style=flat&logo=npm&logoColor=white)\
+![Autoprefixer](https://img.shields.io/badge/Autoprefixer-DD3735?style=flat&logo=autoprefixer&logoColor=white)\
+![PostCSS](https://img.shields.io/badge/PostCSS-DD3A0A?style=flat&logo=postcss&logoColor=white)\
+![Composer](https://img.shields.io/badge/Composer-885630?style=flat&logo=composer&logoColor=white)\
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)\
+![XML](https://img.shields.io/badge/XML-FF6600?style=flat&logo=xml)\
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat&logo=php&logoColor=white)\
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white)\
+![Swiper](https://img.shields.io/badge/Swiper-5A29E4?style=flat&logo=swiper&logoColor=white)\
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white)\
 
 ---
 
