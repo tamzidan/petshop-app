@@ -17,34 +17,34 @@ class GroomingBookingController extends Controller
             'grooming_premium' => [
                 'price' => 40000,
                 'benefits' => ['Mandi biasa', 'Kuku', 'Telinga'],
-                'points' => 10, // Tambahkan poin
+                'points' => 40, // Tambahkan poin
             ],
             'grooming_super' => [
                 'price' => 50000,
                 'benefits' => ['Mandi + Anti Kutu', 'Kuku', 'Telinga', 'Cukur rapi'],
-                'points' => 20, // Tambahkan poin
+                'points' => 50, // Tambahkan poin
             ],
             'grooming_max_all' => [
                 'price' => 60000,
                 'benefits' => ['Mandi + Anti Jamur + Anti Kutu', 'Kuku', 'Telinga', 'Cukur rapi', 'Vitamin bulu', 'Parfum eksklusif'],
-                'points' => 30, // Tambahkan poin
+                'points' => 60, // Tambahkan poin
             ],
         ],
         'adult' => [
             'grooming_premium' => [
                 'price' => 45000,
                 'benefits' => ['Mandi biasa', 'Kuku', 'Telinga'],
-                'points' => 15, // Tambahkan poin
+                'points' => 45, // Tambahkan poin
             ],
             'grooming_super' => [
                 'price' => 55000,
                 'benefits' => ['Mandi + Anti Kutu', 'Kuku', 'Telinga', 'Cukur rapi'],
-                'points' => 25, // Tambahkan poin
+                'points' => 55, // Tambahkan poin
             ],
             'grooming_max_all' => [
                 'price' => 65000,
                 'benefits' => ['Mandi + Anti Jamur + Anti Kutu', 'Kuku', 'Telinga', 'Cukur rapi', 'Vitamin bulu', 'Parfum eksklusif'],
-                'points' => 35, // Tambahkan poin
+                'points' => 65, // Tambahkan poin
             ],
         ],
     ];
