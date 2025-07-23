@@ -11,7 +11,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Tambahkan kode ini
+        $this->app->bind('path.public', function () {
+            // Mengarahkan path.public ke folder public_html
+            // yang berada satu level di atas direktori root Laravel (petshop-app)
+            return base_path('../public_html');
+        });
+
     }
 
     /**

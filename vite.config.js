@@ -11,4 +11,10 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    // Tambahkan atau modifikasi bagian build di bawah ini
+    build: {
+        // Ini adalah baris kuncinya.
+        // Arahkan output build ke folder public_html/build
+        outDir: '../public_html/build', 
+    },
 });
